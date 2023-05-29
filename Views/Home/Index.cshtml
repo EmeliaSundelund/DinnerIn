@@ -1,0 +1,97 @@
+﻿@model DinnerIn.Web.Models.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container col-xxl-8 px-4 py-5">
+
+    <div class="row align-items-center g-5 py-5">
+        <div class="col-12 col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3">
+                DinnerIn - Sparkling Spreads Edition
+            </h1>
+            <p class="lead">              
+                We curate and share a wide range of recipes, tips, and inspiration to help 
+                you create the perfect ambiance and elevate your culinary experience.
+
+                From elegant canapés to tantalizing finger foods, our blog showcases a variety of mouthwatering side dishes, tempting appetizers, and indulgent starters. We believe that every Girls Night should be a feast for the senses, 
+                and we're here to guide you every step of the way.
+
+                Join our community of like-minded women who appreciate the finer things in life and share a passion for delightful bites and exquisite flavors. Whether you're a seasoned hostess or just getting started, our blog is here to 
+                inspire you and help you make every gathering a memorable and stylish affair.
+
+                Indulge in the world of sides, snacks, and starters with us and discover how to add a touch of luxury and elegance to your Girls Night. Cheers to good company, bubbling conversations, and unforgettable culinary experiences!
+            </p>
+        </div>
+        
+        <div class="col-12 col-lg-6">
+            <img src="https://images.pexels.com/photos/3402697/pexels-photo-3402697.jpeg?auto=compress&cs=tinysrgb&w=400"
+                 alt="DinnerIn - SparklingSpreads"
+            class="d-blok mx-lg-aut img-fluid" width="300"/>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6 d-flex">
+            @if(Model != null && Model.Tags.Any())
+            {
+                foreach(var tag in Model.Tags)
+                {
+                    <span class="badge bg-dark me-1">
+                        @tag.Name
+
+                    </span>
+                }
+            }
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            @if(Model != null && Model.Recipes.Any())
+            {
+                foreach(var recipe in Model.Recipes)
+                {
+                    <div class="mb-5 bg-light box-shadow p-5">
+                        <img src="@recipe.FeatureImageUrl" alt="@recipe.Heading" 
+                        class="mb-2 d-block img-fluid"/>
+
+                        <h2 class="mb-4">@recipe.Heading</h2>
+                        <p class="mb-4">
+                            Chef: @recipe.Chef
+                            <br/>
+                            Published Date: @recipe.PublishedDate.ToShortDateString()
+                        </p>
+
+                        <p class="mb-4">
+                            @foreach (var tag in recipe.Tags)
+                            {
+                                <span class="badge bg-secondary me-1">@tag.Name</span>
+                            }
+                        </p>
+
+                        <p class=" =mb-4">@recipe.ShortDescription</p>
+                        <p class=" =mb-5">@recipe.ServingSuggestions</p>
+
+
+                        <a class="btn - btn-dark" 
+                        asp-area=""
+                        asp-controller="Recipes"
+                        asp-action="Index"
+                        asp-route-urlHandle="@recipe.UrlHandle"
+                        > Read more </a>
+                        
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
